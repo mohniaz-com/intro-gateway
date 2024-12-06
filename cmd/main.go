@@ -18,6 +18,7 @@ func main() {
 	channelId := os.Getenv("CHANNEL_ID")
 	roleId := os.Getenv("ROLE_ID")
 	logId := os.Getenv("LOG_ID")
+	joinMsg := os.Getenv("JOIN_MSG")
 
 	log.Println("starting up")
 
@@ -27,6 +28,30 @@ func main() {
 	}
 
 	discord.Identify.Intents = discordgo.IntentsAll
+
+	joinHandler := func(_ *discordgo.Session, join *discordgo.GuildMemberAdd) {
+		log.Printf("%s joined %s\n", join.DisplayName(), guildId)
+
+		if join.GuildID != guildId {
+			return
+		}
+
+		log.Printf("%s join event is relevant", join.DisplayName())
+
+		uc, err := discord.UserChannelCreate(join.User.ID)
+		if err != nil {
+			log.Println(err.Error())
+			discord.ChannelMessageSend(logId, fmt.Sprintf("error while messaging <@%s>: %s", join.User.ID, err.Error()))
+			return
+		}
+
+		_, err = discord.ChannelMessageSend(uc.ID, joinMsg)
+		if err != nil {
+			log.Println(err.Error())
+			discord.ChannelMessageSend(logId, fmt.Sprintf("error while messaging <@%s>: %s", join.User.ID, err.Error()))
+			return
+		}
+	}
 
 	messageHandler := func(_ *discordgo.Session, message *discordgo.MessageCreate) {
 		if message == nil || message.Member == nil || message.Author == nil {
@@ -58,6 +83,7 @@ func main() {
 		discord.ChannelMessageSend(logId, fmt.Sprintf("granted role to <@%s>", message.Author.ID))
 	}
 
+	discord.AddHandler(joinHandler)
 	discord.AddHandler(messageHandler)
 
 	healthCheckServer()

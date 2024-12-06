@@ -18,6 +18,7 @@ Define the following variables in a .env file in the root directory or in the sy
 - CHANNEL_ID: ID of the channel to monitor.
 - ROLE_ID: Role ID to assign.
 - LOG_ID: Channel ID for logging bot actions.
+- JOIN_MSG: Direct message to send to users when they join the guild.
 
 ## Compilation
 
