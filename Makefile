@@ -10,7 +10,7 @@ image:
 	docker build -t intro-gateway .
 
 start:
-	docker run --name intro-gateway -d --env-file .env intro-gateway
+	docker run --name intro-gateway -d -p 80:80 --env-file .env intro-gateway
 
 stop:
 	docker stop intro-gateway
