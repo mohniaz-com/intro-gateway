@@ -1,4 +1,4 @@
-# Intro-Gateway
+# Intro Gateway
 
 A lightweight Discord application designed to grant a specific role to users who send a message in a designated channel. This project was developed primarily for use in the [852 Resurgence Discord server](https://discord.gg/852r).
 
