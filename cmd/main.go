@@ -30,7 +30,6 @@ func main() {
 
 	messageHandler := func(_ *discordgo.Session, message *discordgo.MessageCreate) {
 		if message == nil || message.Member == nil || message.Author == nil {
-			log.Println("nil")
 			return
 		}
 
