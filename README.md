@@ -24,7 +24,7 @@ Define the following variables in a .env file in the root directory or in the sy
 1. Clone the repository:
 
 ```
-git clone https://github.com/your-username/intro-gateway.git
+git clone https://github.com/mohniaz-com/intro-gateway.git
 cd intro-gateway
 ```
 
